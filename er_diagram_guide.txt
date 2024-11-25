@@ -1,0 +1,145 @@
+ER DIAGRAM GUIDE FOR BOOKSTORE DATABASE
+=====================================
+
+1. ENTITIES AND ATTRIBUTES
+-------------------------
+
+USERS
+-----
+Primary Key: user_id (INT)
+Attributes:
+- username (VARCHAR(50)) [UNIQUE]
+- password (VARCHAR(255))
+- email (VARCHAR(100)) [UNIQUE]
+- full_name (VARCHAR(100))
+- created_at (TIMESTAMP)
+
+BOOKS
+-----
+Primary Key: book_id (INT)
+Attributes:
+- title (VARCHAR(200))
+- author (VARCHAR(100))
+- price (DECIMAL(10,2))
+- stock (INT)
+- description (TEXT)
+- image_url (VARCHAR(255))
+- created_at (TIMESTAMP)
+
+ORDERS
+------
+Primary Key: order_id (INT)
+Foreign Key: user_id (INT) references USERS
+Attributes:
+- total_amount (DECIMAL(10,2))
+- status (VARCHAR(20))
+- created_at (TIMESTAMP)
+
+ORDER_ITEMS
+----------
+Primary Key: order_item_id (INT)
+Foreign Keys:
+- order_id (INT) references ORDERS
+- book_id (INT) references BOOKS
+Attributes:
+- quantity (INT)
+- price (DECIMAL(10,2))
+
+2. RELATIONSHIPS
+---------------
+
+1. Users to Orders:
+   - One-to-Many (1:N)
+   - A user can have multiple orders
+   - Each order belongs to one user
+   - Cardinality: 1:N
+   - Participation: Optional for Users, Mandatory for Orders
+
+2. Orders to Order_Items:
+   - One-to-Many (1:N)
+   - An order can have multiple order items
+   - Each order item belongs to one order
+   - Cardinality: 1:N
+   - Participation: Mandatory for both
+
+3. Books to Order_Items:
+   - One-to-Many (1:N)
+   - A book can be in multiple order items
+   - Each order item refers to one book
+   - Cardinality: 1:N
+   - Participation: Optional for Books, Mandatory for Order_Items
+
+3. DRAWING INSTRUCTIONS
+----------------------
+
+1. Entity Representation:
+   - Draw rectangles for each entity
+   - Entity name in CAPS at top
+   - List attributes below entity name
+   - Underline primary keys
+   - Indicate foreign keys with FK prefix
+
+2. Relationship Lines:
+   - Use solid lines to connect related entities
+   - Add crow's foot notation for many side
+   - Add single line for one side
+   - Add relationship name on the line
+
+3. Cardinality Notation:
+   Users ──────┳━━━━━━ Orders
+   (1)         (N)
+
+   Orders ─────┳━━━━━━ Order_Items
+   (1)         (N)
+
+   Books ──────┳━━━━━━ Order_Items
+   (1)         (N)
+
+4. MYSQL WORKBENCH SPECIFIC INSTRUCTIONS
+--------------------------------------
+
+1. Create New EER Diagram:
+   - File > New Model
+   - Click 'Add Diagram'
+
+2. Add Tables:
+   - Drag 'Table' from left sidebar
+   - Double-click to add attributes
+   - Set data types and constraints
+
+3. Create Relationships:
+   - Select relationship tool
+   - Click source table (one side)
+   - Click target table (many side)
+   - Configure cardinality in properties
+
+4. Visual Settings:
+   - Tables: Light blue background
+   - Primary Keys: Bold
+   - Foreign Keys: Italic
+   - Relationships: Black lines
+   - Optional relationships: Dotted lines
+
+5. VERIFICATION CHECKLIST
+------------------------
+
+□ All entities represented
+□ All attributes listed
+□ Primary keys marked
+□ Foreign keys marked
+□ Relationships properly connected
+□ Cardinality notation correct
+□ Participation constraints shown
+□ Attribute data types listed
+□ Entity names in CAPS
+□ Relationship names added
+□ Diagram is readable and well-organized
+
+6. NOTES
+--------
+- Use clear, readable fonts
+- Maintain consistent spacing
+- Add legends if needed
+- Include diagram title and date
+- Consider adding color coding for clarity
+- Save diagram in both editable and image formats 
